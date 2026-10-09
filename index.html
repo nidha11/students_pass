@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Pass Prediction</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eaf0ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 5px 20px #0002;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2455a4;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 0;
+            margin-top: 8px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 16px;
+            text-indent: 10px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 22px;
+            padding: 15px;
+            background: #e0f7e8;
+            color: #176b35;
+            font-size: 21px;
+            font-weight: bold;
+            border-radius: 7px;
+        }
+
+        .fail {
+            background: #ffebeb;
+            color: #b42318;
+        }
+
+        .error {
+            color: #b42318;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎓 Student Pass Prediction</h1>
+
+        <form method="POST">
+            <label>Study Hours Per Day</label>
+            <input type="number" name="study_hours"
+                   min="0" max="24" step="0.5" required>
+
+            <label>Attendance (%)</label>
+            <input type="number" name="attendance"
+                   min="0" max="100" step="0.1" required>
+
+            <label>Previous Marks (%)</label>
+            <input type="number" name="previous_marks"
+                   min="0" max="100" step="0.1" required>
+
+            <button type="submit">Predict Result</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result {% if prediction == 'Fail' %}fail{% endif %}">
+            Predicted Result: {{ prediction }}
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <p style="font-size:12px;color:#666;margin-top:20px">
+            Educational demo using sample data. Prediction is an estimate.
+        </p>
+    </div>
+</body>
+</html>

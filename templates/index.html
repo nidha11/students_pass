@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Pass Prediction</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0eaff, #f7f8fc);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 480px;
+            padding: 32px;
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.10);
+        }
+
+        h1 {
+            color: #183b70;
+            text-align: center;
+            font-size: 27px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #65738b;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            color: #253650;
+            font-weight: bold;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd5e3;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: 2px solid #8bb6ff;
+            border-color: #3478e5;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #174bb8;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #e7f8ed;
+            color: #14733b;
+        }
+
+        .result h2 {
+            margin: 0 0 12px;
+            font-size: 21px;
+        }
+
+        .result p {
+            margin: 8px 0;
+        }
+
+        .prediction {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .fail {
+            background: #fff0ef;
+            color: #c62828;
+        }
+
+        .error {
+            margin-top: 18px;
+            padding: 12px;
+            background: #fff0ef;
+            color: #b42318;
+            border-radius: 8px;
+        }
+
+        .note {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #697586;
+            margin-top: 22px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>🎓 Student Pass Prediction</h1>
+
+        <p class="subtitle">
+            Machine Learning Based Student Performance Predictor
+        </p>
+
+        <form action="/" method="POST">
+
+            <label for="student_name">Student Name</label>
+            <input
+                type="text"
+                id="student_name"
+                name="student_name"
+                placeholder="Enter student name"
+                value="{{ student_name }}"
+                maxlength="100"
+                required
+            >
+
+            <label for="study_hours">Study Hours Per Day</label>
+            <input
+                type="number"
+                id="study_hours"
+                name="study_hours"
+                min="0"
+                max="24"
+                step="0.5"
+                placeholder="Example: 5"
+                required
+            >
+
+            <label for="attendance">Attendance (%)</label>
+            <input
+                type="number"
+                id="attendance"
+                name="attendance"
+                min="0"
+                max="100"
+                step="0.1"
+                placeholder="Example: 85"
+                required
+            >
+
+            <label for="previous_marks">Previous Marks (%)</label>
+            <input
+                type="number"
+                id="previous_marks"
+                name="previous_marks"
+                min="0"
+                max="100"
+                step="0.1"
+                placeholder="Example: 68"
+                required
+            >
+
+            <button type="submit">Predict Result</button>
+
+        </form>
+
+        {% if prediction %}
+        <div class="result {% if prediction == 'Fail' %}fail{% endif %}">
+            <h2>Prediction Result</h2>
+
+            <p>
+                <strong>Student Name:</strong>
+                {{ student_name }}
+            </p>
+
+            <p class="prediction">
+                Predicted Result: {{ prediction }}
+            </p>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <p class="note">
+            Note: This is an educational demonstration using a small
+            sample dataset. Predictions are estimates, not guaranteed
+            examination results.
+        </p>
+
+    </div>
+</body>
+</html>
